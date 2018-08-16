@@ -1,1 +1,1 @@
-012345,Savings,Bob,Cobb,03/07/1980,28 Brown St,Toronto,ON,Canada,L9V3X6,905-555-6676,0,0.1
+012345,Savings,Bob,Cobb,03/07/1980,28 Brown St,Toronto,ON,Canada,L9V3X6,905-555-6676,950,0.1

@@ -1,6 +1,7 @@
 #include "Person.h"
 #include <iostream>
 
+
 Person::Person() {}
 
 Person::Person(const string &fname, const string &lname, const string &dob, 
@@ -169,7 +170,7 @@ void Person::set_phone_number(const string &phone_number) {
 
 ostream &operator << (ostream &output, Person &person) {
 	output << "First Name: " << person.get_fname() << endl;
-	output << "Last Name: " << person.get_lname() << endl;
+	output << "Last Name: " <<person.get_lname() << endl;
 	output << "Date Of Birth: " << person.get_dob() << endl;
 	output << "Address: " << person.get_address() << endl;
 	output << "City: " << person.get_city() << endl;

@@ -98,10 +98,10 @@ void SavingsAccount::account_withdraw(double &account_balance,
 	account_balance - withdraw_amount;
 }
 
-void SavingsAccount::account_deposit(double &account_balance, 
-	double &deposit_amount) {
+double SavingsAccount::account_deposit(double account_balance, 
+	double deposit_amount) {
 
-	account_balance - deposit_amount;
+	return account_balance + deposit_amount;
 }
 
 void SavingsAccount::calculate_interest() {
@@ -111,7 +111,7 @@ void SavingsAccount::calculate_interest() {
 ostream &operator << (ostream &output, SavingsAccount &sa) {
 	output << "Account Number: " << sa.get_account_number() << endl;
 	output << "Account Type: " << sa.get_account_type() << endl;
-	output << "Account Balance: " << sa.get_account_balance() << endl;
+	output << "Account Balance: $" << sa.get_account_balance() << endl;
 	output << "Account Interest: " << sa.get_account_interest() << endl;
 	return output;
 }

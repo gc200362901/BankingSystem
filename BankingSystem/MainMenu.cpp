@@ -11,6 +11,9 @@ MainMenu::MainMenu() {
 		else if(menu_selection == 2) {
 			display_account_info();
 		}
+		else if (menu_selection == 3) {
+			account_transaction();
+		}
 		else {
 			cout << "Have a nice day!" << endl;
 			break;
@@ -29,77 +32,51 @@ int MainMenu::get_menu_selection() {
 	return main_menu_choice;
 }
 
-void MainMenu::create_new_account() {
-	Customer new_customer;
-
-	system("CLS");
-
-	Person person_info = new_customer.create_customer_info();
-
-	system("CLS");
-
-	cout << "Select Account Type: " << endl;
-	vector<string> options = { "Savings", "Chequing" };
-	int account_choice = Menu::user_options(options);
-
-	if (account_choice == 1) {
-		SavingsAccount savings_info = new_customer.create_savings_acc_info();
-		new_customer.set_person(person_info);
-		new_customer.set_savings_account(savings_info);
-
-		string acc_num = savings_info.get_account_number();
-		ofstream customer_file(acc_num + ".txt");
-		if (!customer_file.is_open()) {
-			cout << "File Error" << endl;
-		}
-		customer_file << savings_info.get_account_number() << ','
-			<< savings_info.get_account_type() << ','
-			<< person_info.get_fname() << ','
-			<< person_info.get_lname() << ','
-			<< person_info.get_dob() << ','
-			<< person_info.get_address() << ','
-			<< person_info.get_city() << ','
-			<< person_info.get_province() << ','
-			<< person_info.get_country() << ','
-			<< person_info.get_postal_code() << ','
-			<< person_info.get_phone_number() << ','
-			<< savings_info.get_account_balance() << ','
-			<< savings_info.get_account_interest() << endl;
-		customer_file.close();
+void MainMenu::write_savings_account(Person p, SavingsAccount sa) {
+	string acc_num = sa.get_account_number();
+	ofstream customer_file(acc_num + ".txt");
+	if (!customer_file.is_open()) {
+		cout << "File Error" << endl;
 	}
-	else {
-		ChequingAccount chequing_info = new_customer.create_chequing_acc_info();
-		new_customer.set_person(person_info);
-		new_customer.set_chequing_account(chequing_info);
-
-		string acc_num = chequing_info.get_account_number();
-		ofstream customer_file(acc_num + ".txt");
-		if (!customer_file.is_open()) {
-			cout << "File Error" << endl;
-		}
-		customer_file << chequing_info.get_account_number() << ','
-			<< chequing_info.get_account_type() << ','
-			<< person_info.get_fname() << ','
-			<< person_info.get_lname() << ','
-			<< person_info.get_dob() << ','
-			<< person_info.get_address() << ','
-			<< person_info.get_city() << ','
-			<< person_info.get_province() << ','
-			<< person_info.get_country() << ','
-			<< person_info.get_postal_code() << ','
-			<< person_info.get_phone_number() << ','
-			<< chequing_info.get_account_balance() << endl;
-		customer_file.close();
-	}
+	customer_file << sa.get_account_number() << ','
+		<< sa.get_account_type() << ','
+		<< p.get_fname() << ','
+		<< p.get_lname() << ','
+		<< p.get_dob() << ','
+		<< p.get_address() << ','
+		<< p.get_city() << ','
+		<< p.get_province() << ','
+		<< p.get_country() << ','
+		<< p.get_postal_code() << ','
+		<< p.get_phone_number() << ','
+		<< sa.get_account_balance() << ','
+		<< sa.get_account_interest() << endl;
+	customer_file.close();
 }
 
-void MainMenu::display_account_info() {
+void MainMenu::write_chequing_account(Person p, ChequingAccount ca) {
+	string acc_num = ca.get_account_number();
+	ofstream customer_file(acc_num + ".txt");
+	if (!customer_file.is_open()) {
+		cout << "File Error" << endl;
+	}
+	customer_file << ca.get_account_number() << ','
+		<< ca.get_account_type() << ','
+		<< p.get_fname() << ','
+		<< p.get_lname() << ','
+		<< p.get_dob() << ','
+		<< p.get_address() << ','
+		<< p.get_city() << ','
+		<< p.get_province() << ','
+		<< p.get_country() << ','
+		<< p.get_postal_code() << ','
+		<< p.get_phone_number() << ','
+		<< ca.get_account_balance() << endl;
+	customer_file.close();
+}
 
-	vector<string> tmp_collection;
+void MainMenu::read_account(vector<string> &tmp_collection) {
 	string acc_num, tmp;
-
-	system("CLS");
-
 	cout << "Enter Account Number: " << endl;
 	cin >> acc_num;
 	ifstream customer_file(acc_num + ".txt");
@@ -111,6 +88,40 @@ void MainMenu::display_account_info() {
 		tmp_collection.push_back(tmp);
 	}
 	customer_file.close();
+}
+
+void MainMenu::create_new_account() {
+	Customer new_customer;
+
+	system("CLS");
+
+	Person p = new_customer.create_customer_info();
+
+	system("CLS");
+
+	cout << "Select Account Type: " << endl;
+	vector<string> options = { "Savings", "Chequing" };
+	int account_choice = Menu::user_options(options);
+
+	if (account_choice == 1) {
+		SavingsAccount sa = new_customer.create_savings_acc_info();
+
+		write_savings_account(p, sa);
+	}
+	else {
+		ChequingAccount ca = new_customer.create_chequing_acc_info();
+
+		write_chequing_account(p, ca);
+	}
+}
+
+void MainMenu::display_account_info() {
+
+	vector<string> tmp_collection;
+	
+	system("CLS");
+
+	read_account(tmp_collection);
 
 	//Savings account
 	if (tmp_collection.size() == 13) {
@@ -129,6 +140,7 @@ void MainMenu::display_account_info() {
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin.get();
 	}
+	//Chequing Account
 	else {
 		Person p = { tmp_collection[2], tmp_collection[3], tmp_collection[4],
 			tmp_collection[5], tmp_collection[6], tmp_collection[7],
@@ -147,3 +159,76 @@ void MainMenu::display_account_info() {
 	}
 }
 
+void MainMenu::account_transaction() {
+	vector<string> tmp_collection;
+	string acc_num, tmp;
+
+	system("CLS");
+
+	read_account(tmp_collection);
+
+	//Savings Account
+	if (tmp_collection.size() == 13) {
+		Person p = { tmp_collection[2], tmp_collection[3], tmp_collection[4],
+			tmp_collection[5], tmp_collection[6], tmp_collection[7],
+			tmp_collection[8], tmp_collection[9], tmp_collection[10] };
+		SavingsAccount sa = { tmp_collection[0], tmp_collection[1],
+			stod(tmp_collection[11]), stod(tmp_collection[12]) };
+
+		system("CLS");
+
+		cout << "Transaction Options: " << endl;
+		vector<string> options = { "Deposit", "Withdraw" };
+		int transaction_choice = Menu::user_options(options);
+		if (transaction_choice == 1) {
+			double deposit_amount;
+			system("CLS");
+			cout << "Enter Deposit Amount: " << endl;
+			cin >> deposit_amount;
+			double balance = sa.account_deposit(sa.get_account_balance(), deposit_amount);
+			sa.set_account_balance(balance);
+
+			write_savings_account(p, sa);
+
+			system("CLS");
+			cout << "Account has been updated.\n" << endl;
+			cout << sa;
+			cout << "Press any key to return to main menu" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.get();
+		}
+	}
+	//Chequing Account
+	else {
+		Person p = { tmp_collection[2], tmp_collection[3], tmp_collection[4],
+			tmp_collection[5], tmp_collection[6], tmp_collection[7],
+			tmp_collection[8], tmp_collection[9], tmp_collection[10] };
+		ChequingAccount ca = { tmp_collection[0], tmp_collection[1],
+			stod(tmp_collection[11]) };
+
+		system("CLS");
+
+		cout << "Transaction Options: " << endl;
+		vector<string> options = { "Deposit", "Withdraw" };
+		int transaction_choice = Menu::user_options(options);
+		if (transaction_choice == 1) {
+			double deposit_amount;
+			system("CLS");
+			cout << "Enter Deposit Amount: " << endl;
+			cin >> deposit_amount;
+			double balance = ca.account_deposit(ca.get_account_balance(), deposit_amount);
+			ca.set_account_balance(balance);
+
+			write_chequing_account(p, ca);
+
+			system("CLS");
+			cout << "Account has been updated.\n" << endl;
+			cout << ca;
+			cout << "Press any key to return to main menu" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.get();
+		}
+	}
+}

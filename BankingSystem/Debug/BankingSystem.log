@@ -1,2 +1,8 @@
-﻿  MainMenu.cpp
+﻿  ChequingAccount.cpp
+c:\users\warmcheese\documents\comp_2006\bankingsystem\bankingsystem\bankingsystem\chequingaccount.cpp(64): warning C4552: '-': result of expression not used
+  Customer.cpp
+  Person.cpp
+  SavingsAccount.cpp
+c:\users\warmcheese\documents\comp_2006\bankingsystem\bankingsystem\bankingsystem\savingsaccount.cpp(98): warning C4552: '-': result of expression not used
+  Generating Code...
   BankingSystem.vcxproj -> C:\Users\warmcheese\Documents\comp_2006\BankingSystem\BankingSystem\Debug\BankingSystem.exe

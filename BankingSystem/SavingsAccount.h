@@ -31,7 +31,7 @@ public:
 
 	void account_withdraw(double &account_balance, double &withdraw_amount);
 
-	void account_deposit(double &account_balance, double &deposit_amount);
+	double account_deposit(double account_balance, double deposit_amount);
 
 	void calculate_interest();
 

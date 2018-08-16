@@ -64,15 +64,15 @@ void ChequingAccount::account_withdraw(double &account_balance,
 	account_balance - withdraw_amount;
 }
 
-void ChequingAccount::account_deposit(double &account_balance,
-	double &deposit_amount) {
+double ChequingAccount::account_deposit(double account_balance,
+	double deposit_amount) {
 
-	account_balance - deposit_amount;
+	return account_balance + deposit_amount;
 }
 
 ostream &operator << (ostream &output, ChequingAccount &ca) {
 	output << "Account Number: " << ca.get_account_number() << endl;
 	output << "Account Type: " << ca.get_account_type() << endl;
-	output << "Account Balance: " << ca.get_account_balance() << endl;
+	output << "Account Balance: $" << ca.get_account_balance() << endl;
 	return output;
 }
