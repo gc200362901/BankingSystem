@@ -36,7 +36,7 @@ void MainMenu::write_savings_account(Person p, SavingsAccount sa) {
 	string acc_num = sa.get_account_number();
 	ofstream customer_file(acc_num + ".txt");
 	if (!customer_file.is_open()) {
-		cout << "File Error" << endl;
+		cout << "Error opening file." << endl;
 	}
 	customer_file << sa.get_account_number() << ','
 		<< sa.get_account_type() << ','
@@ -58,7 +58,7 @@ void MainMenu::write_chequing_account(Person p, ChequingAccount ca) {
 	string acc_num = ca.get_account_number();
 	ofstream customer_file(acc_num + ".txt");
 	if (!customer_file.is_open()) {
-		cout << "File Error" << endl;
+		cout << "Error opening file." << endl;
 	}
 	customer_file << ca.get_account_number() << ','
 		<< ca.get_account_type() << ','
@@ -198,6 +198,24 @@ void MainMenu::account_transaction() {
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cin.get();
 		}
+		else {
+			double withdraw_amount;
+			system("CLS");
+			cout << "Enter Withdraw Amount: " << endl;
+			cin >> withdraw_amount;
+			double balance = sa.account_withdraw(sa.get_account_balance(), withdraw_amount);
+			sa.set_account_balance(balance);
+
+			write_savings_account(p, sa);
+
+			system("CLS");
+			cout << "Account has been updated.\n" << endl;
+			cout << sa;
+			cout << "Press any key to return to main menu" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.get();
+		}
 	}
 	//Chequing Account
 	else {
@@ -218,6 +236,24 @@ void MainMenu::account_transaction() {
 			cout << "Enter Deposit Amount: " << endl;
 			cin >> deposit_amount;
 			double balance = ca.account_deposit(ca.get_account_balance(), deposit_amount);
+			ca.set_account_balance(balance);
+
+			write_chequing_account(p, ca);
+
+			system("CLS");
+			cout << "Account has been updated.\n" << endl;
+			cout << ca;
+			cout << "Press any key to return to main menu" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.get();
+		}
+		else {
+			double withdraw_amount;
+			system("CLS");
+			cout << "Enter Withdraw Amount: " << endl;
+			cin >> withdraw_amount;
+			double balance = ca.account_withdraw(ca.get_account_balance(), withdraw_amount);
 			ca.set_account_balance(balance);
 
 			write_chequing_account(p, ca);

@@ -1,1 +1,1 @@
-012346,Chequing,Mary,Berry,07/12/1983,10 Brick Lane,Barrie,ON,Canada,L4C2X6,905-555-0987,720
+012346,Chequing,Mary,Berry,07/12/1983,10 Brick Lane,Barrie,ON,Canada,L4C2X6,905-555-0987,190

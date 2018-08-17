@@ -4,76 +4,14 @@ SavingsAccount::SavingsAccount() {}
 
 SavingsAccount::SavingsAccount(const string &account_number,
 	const string &account_type, const double &account_balance,
-	const double &account_interest) {
+	const double &account_interest) : Account(account_number,
+		account_type, account_balance) {
 
-	set_account_number(account_number);
-	set_account_type(account_type);
-	set_account_balance(account_balance);
 	set_account_interest(account_interest);
-}
-
-const string SavingsAccount::get_account_number() {
-	return m_account_number;
-}
-
-const string SavingsAccount::get_account_type() {
-	return m_account_type;
-}
-
-const double SavingsAccount::get_account_balance() {
-	return m_account_balance;
 }
 
 const double SavingsAccount::get_account_interest() {
 	return m_account_interest;
-}
-
-/*
-Sets the account number after validating the number is not empty
-@throws exception if account number is empty
-*/
-void SavingsAccount::set_account_number(const string &account_number) {
-	try {
-		if (account_number.length() < 1) {
-			throw 1;
-		}
-		m_account_number = account_number;
-	}
-	catch (int e) {
-		cout << "Account number can not be empty, ERR NUMBER: " << e << endl;
-	}
-}
-
-/*
-Sets the account type after validating the type is not empty
-@throws exception if account type is empty
-*/
-void SavingsAccount::set_account_type(const string &account_type) {
-	try {
-		if (account_type.length() < 1) {
-			throw 1;
-		}
-		m_account_type = account_type;
-	}
-	catch (int e) {
-		cout << "Account type can not be empty, ERR NUMBER: " << e << endl;
-	}
-}
-
-/*
-Sets the account balance and validates the balance is not less then 0
-@throws exception if balance is less then 0
-*/
-void SavingsAccount::set_account_balance(const double &account_balance) {
-	try {
-		if (account_balance < 0) {
-			throw 1;
-		}
-		m_account_balance = account_balance;
-	}
-	catch (int e) {
-		cout << "Savings account balance can not be less then 0, ERR NUMBER: " << e << endl;
-	}
 }
 
 /*
@@ -92,20 +30,20 @@ void SavingsAccount::set_account_interest(const double &account_interest) {
 	}
 }
 
-void SavingsAccount::account_withdraw(double &account_balance, 
-	double &withdraw_amount) {
+//void SavingsAccount::calculate_interest() {
+//
+//}
 
-	account_balance - withdraw_amount;
+double SavingsAccount::account_withdraw(double account_balance,
+	double withdraw_amount) {
+
+	return account_balance - withdraw_amount;
 }
 
-double SavingsAccount::account_deposit(double account_balance, 
+double SavingsAccount::account_deposit(double account_balance,
 	double deposit_amount) {
 
 	return account_balance + deposit_amount;
-}
-
-void SavingsAccount::calculate_interest() {
-
 }
 
 ostream &operator << (ostream &output, SavingsAccount &sa) {
